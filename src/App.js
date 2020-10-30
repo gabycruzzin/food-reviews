@@ -1,22 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import { Employee } from './Employee';
+import { useState } from 'react';
 
 function App() {
+  const [mylist, setmylist] = useState([
+    {name: 'Gaby', sid: 'F581463'}, {name: 'Bob', sid: 'I123456'}, {name: 'Kiki', sid: 'W456789'}]);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        App.js
+        <Employee names={mylist} />
       </header>
     </div>
   );

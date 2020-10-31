@@ -1,28 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
-import { Employee } from './Employee';
-import { useState } from 'react';
 import { CreateEmployee } from './components/CreateEmployee';
 import { UpdateEmployee } from './components/UpdateEmployee';
 import { DeleteEmployee } from './components/DeleteEmployee';
 import { ViewEmployee } from './components/ViewEmployee';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 function App() {
-  const [mylist, setmylist] = useState([
-    {name: 'Gaby', sid: 'F581463'}, 
-    {name: 'Bob', sid: 'I123456'}, 
-    {name: 'Kiki', sid: 'W456789'}]);
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      backgroundColor: 'pink',
+      height: '100vh'
+    },
+    componentContainer: {
+      margin: 'auto',
+      width: 1080
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.primary,
+    },
+  }));
+
+  const classes = useStyles();
 
   return (
-    <div className="App">
-      <header className="App-header">        
-        <Employee names={mylist} />
-
-        <CreateEmployee />
-        <UpdateEmployee />
-        <DeleteEmployee />
-        <ViewEmployee />
-      </header>
+    <div className={classes.root}>
+      <Grid container className={classes.componentContainer} spacing={3}>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}><CreateEmployee /></Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}><UpdateEmployee /></Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}><DeleteEmployee /></Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}><ViewEmployee /></Paper>
+        </Grid>
+      </Grid>
     </div>
   );
 }

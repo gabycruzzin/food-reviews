@@ -2,62 +2,72 @@ var express = require('express');
 var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 
-// Construct a schema, using GraphQL schema language
-// describes the functionality available to the client applications that connect to it
 var schema = buildSchema(`
-  input MessageInput {
-    content: String
-    author: String
+  input EmployeeInput {
+    sid: String
+    name: String
   }
 
-  type Message {
+  type Employee {
     id: ID!
-    content: String
-    author: String
+    sid: String
+    name: String
   }
 
   type Query {
-    getMessage(id: ID!): Message
+    getEmployee(id: ID!): Employee
+    getAllEmployees: [Employee]
   }
 
   type Mutation {
-    createMessage(input: MessageInput): Message
-    updateMessage(id: ID!, input: MessageInput): Message
+    createEmployee(input: EmployeeInput): Employee
+    updateEmployee(id: ID!, input: EmployeeInput): Employee
+    deleteEmployee(id: ID!): [Employee]
   }
 `);
-// If Message had any complex fields, we'd put them on this object.
-class Message {
-    constructor(id, {content, author}) {
+
+class Employee {
+  constructor(id, {sid, name}) {
       this.id = id;
-      this.content = content;
-      this.author = author;
+      this.sid = sid;
+      this.name = name;
     }
   }
-// Maps username to content
-var fakeDatabase = {};
+
+var employeeDatabase = [];
 
 var root = {
-  getMessage: ({id}) => {
-    if (!fakeDatabase[id]) {
-      throw new Error('no message exists with id ' + id);
+  getEmployee: ({id}) => {
+    if (!employeeDatabase[id]) {
+      throw new Error('no Employee exists with id ' + id);
     }
-    return new Message(id, fakeDatabase[id]);
+    return employeeDatabase[id];
   },
-  createMessage: ({input}) => {
-    // Create a random id for our "database".
+  getAllEmployees: () => {
+    return employeeDatabase;
+  },
+  createEmployee: ({input}) => {
     var id = require('crypto').randomBytes(10).toString('hex');
 
-    fakeDatabase[id] = input;
-    return new Message(id, input);
+    employeeDatabase.push(new Employee(id, input));
+    return new Employee(id, input);
   },
-  updateMessage: ({id, input}) => {
-    if (!fakeDatabase[id]) {
-      throw new Error('no message exists with id ' + id);
+  updateEmployee: ({id, input}) => {
+    if (!employeeDatabase.find(emp => emp.id === id)) {
+      throw new Error('no Employee exists with id ' + id);
     }
-    // This replaces all old data, but some apps might want partial update.
-    fakeDatabase[id] = input;
-    return new Message(id, input);
+    
+    let foundIndex = employeeDatabase.findIndex(element => element.id === id);
+    employeeDatabase[foundIndex] = {id, ...input};
+    return new Employee(id, input);
   },
+  deleteEmployee: ({id}) => {
+    if (!employeeDatabase.find(emp => emp.id === id)) {
+      throw new Error('no Employee exists with id ' + id);
+    }
+    employeeDatabase = employeeDatabase.filter(element => element.id !== id);
+    return employeeDatabase;
+  }
 };
 
 var app = express();

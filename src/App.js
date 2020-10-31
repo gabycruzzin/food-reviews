@@ -2,6 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import { Employee } from './Employee';
 import { useState } from 'react';
+import { CreateEmployee } from './components/CreateEmployee';
+import { UpdateEmployee } from './components/UpdateEmployee';
+import { DeleteEmployee } from './components/DeleteEmployee';
+import { ViewEmployee } from './components/ViewEmployee';
 
 function App() {
   const [mylist, setmylist] = useState([
@@ -11,11 +15,13 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        App.js
-        
+      <header className="App-header">        
         <Employee names={mylist} />
+
+        <CreateEmployee />
+        <UpdateEmployee />
+        <DeleteEmployee />
+        <ViewEmployee />
       </header>
     </div>
   );

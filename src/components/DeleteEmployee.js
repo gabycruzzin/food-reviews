@@ -1,5 +1,7 @@
+import { Typography } from "@material-ui/core";
+
 export const DeleteEmployee = props => {
     return (
-        <div>Delete Employee</div>
+        <Typography variant="h6" gutterBottom>Delete Employee</Typography>
     );
 };

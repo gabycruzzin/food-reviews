@@ -1,5 +1,7 @@
+import { Typography } from "@material-ui/core";
+
 export const CreateEmployee = props => {
     return (
-        <div>Create Employee</div>
+        <Typography variant="h6" gutterBottom>Create Employee</Typography>
     );
 };

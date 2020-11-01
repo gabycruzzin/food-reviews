@@ -10,7 +10,7 @@ function App() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      backgroundColor: 'pink',
+      backgroundColor: 'peachpuff',
       height: '100vh'
     },
     componentContainer: {

@@ -4,16 +4,16 @@ var query = `query RollDice($dice: Int!, $sides: Int) {
   rollDice(numDice: $dice, numSides: $sides)
 }`;
 
-fetch('/graphql', {
-  method: 'POST',
+fetch("/graphql", {
+  method: "POST",
   headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
   body: JSON.stringify({
     query,
     variables: { dice, sides },
-  })
+  }),
 })
-  .then(r => r.json())
-  .then(data => console.log('data returned:', data));
+  .then((r) => r.json())
+  .then((data) => console.log("data returned:", data));

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export const DeleteEmployee = (props) => {
+export const DeleteEmployee = () => {
   const classes = useStyles();
 
   return (

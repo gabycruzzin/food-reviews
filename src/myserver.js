@@ -1,4 +1,5 @@
 var express = require("express");
+var cors = require("cors");
 var { graphqlHTTP } = require("express-graphql");
 var { buildSchema } = require("graphql");
 
@@ -20,8 +21,8 @@ var schema = buildSchema(`
   }
 
   type Mutation {
-    createEmployee(input: EmployeeInput): Employee
-    updateEmployee(id: ID!, input: EmployeeInput): Employee
+    createEmployee(input: EmployeeInput!): Employee
+    updateEmployee(id: ID!, input: EmployeeInput!): Employee
     deleteEmployee(id: ID!): [Employee]
   }
 `);
@@ -71,6 +72,7 @@ var root = {
 };
 
 var app = express();
+app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({

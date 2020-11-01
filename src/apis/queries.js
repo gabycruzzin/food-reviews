@@ -1,19 +1,32 @@
-var dice = 3;
-var sides = 6;
-var query = `query RollDice($dice: Int!, $sides: Int) {
-  rollDice(numDice: $dice, numSides: $sides)
+import axios from "axios";
+
+const headers = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+};
+
+var query = `mutation EmployeeInput($sid: String, $name: String) {
+  createEmployee(input: {sid: $sid, name: $name}) {
+     id, name, sid
+   }
 }`;
 
-fetch("/graphql", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-  body: JSON.stringify({
-    query,
-    variables: { dice, sides },
-  }),
-})
-  .then((r) => r.json())
-  .then((data) => console.log("data returned:", data));
+export const createEmployee = (sid, name) => {
+  return new Promise((resolve) => {
+    axios
+      .post(
+        "http://localhost:4000/graphql",
+        {
+          query,
+          variables: { sid, name },
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        resolve(response.data.data.createEmployee);
+      })
+      .catch(function (error) {
+        alert(error.response);
+      });
+  });
+};

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export const ViewEmployee = (props) => {
+export const ViewEmployee = () => {
   const classes = useStyles();
 
   return (

@@ -27,7 +27,7 @@ export const DeleteEmployee = () => {
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
           id="outlined-basic"
-          label="Name"
+          label="ID"
           variant="outlined"
           value={id}
           onChange={(event) => setid(event.target.value)}

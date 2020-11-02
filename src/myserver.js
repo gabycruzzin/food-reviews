@@ -16,8 +16,7 @@ var schema = buildSchema(`
   }
 
   type Query {
-    getEmployee(id: ID!): Employee
-    getAllEmployees: [Employee]
+    getEmployee(id: ID): [Employee]
   }
 
   type Mutation {
@@ -39,18 +38,21 @@ var employeeDatabase = [];
 
 var root = {
   getEmployee: ({ id }) => {
-    if (!employeeDatabase[id]) {
-      throw new Error("no Employee exists with id " + id);
+    console.log(employeeDatabase);
+
+    if (!id) {
+      return employeeDatabase;
     }
-    return employeeDatabase[id];
-  },
-  getAllEmployees: () => {
-    return employeeDatabase;
+    if (!employeeDatabase.find((emp) => emp.id === id)) {
+      throw new Error("no Employee exists with id " + id);
+    } else {
+      return employeeDatabase.filter((emp) => emp.id === id);
+    }
   },
   createEmployee: ({ input }) => {
     var id = require("crypto").randomBytes(10).toString("hex");
 
-    employeeDatabase.push(new Employee(id, input));
+    employeeDatabase.push({ id, ...input });
     return new Employee(id, input);
   },
   updateEmployee: ({ id, input }) => {

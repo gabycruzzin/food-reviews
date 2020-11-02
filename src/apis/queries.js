@@ -82,3 +82,29 @@ export const deleteEmployee = (id) => {
       });
   });
 };
+
+var getQuery = `query get($id: ID) {
+  getEmployee(id: $id) {
+     id, name, sid
+   }
+}`;
+
+export const getEmployee = (id) => {
+  return new Promise((resolve) => {
+    axios
+      .post(
+        "http://localhost:4000/graphql",
+        {
+          query: getQuery,
+          variables: { id },
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        resolve(JSON.stringify(response.data, null, 1));
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  });
+};

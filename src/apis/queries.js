@@ -5,7 +5,7 @@ const headers = {
   Accept: "application/json",
 };
 
-var createQuery = `mutation EmployeeInput($sid: String, $name: String) {
+var createQuery = `mutation create($sid: String, $name: String) {
   createEmployee(input: {sid: $sid, name: $name}) {
      id, name, sid
    }
@@ -23,7 +23,7 @@ export const createEmployee = (sid, name) => {
         { headers: headers }
       )
       .then(function (response) {
-        resolve(JSON.stringify(response.data));
+        resolve(JSON.stringify(response.data, null, 1));
       })
       .catch(function (error) {
         alert(error);
@@ -31,7 +31,7 @@ export const createEmployee = (sid, name) => {
   });
 };
 
-var updateQuery = `mutation EmployeeInput($id: ID!, $sid: String, $name: String) {
+var updateQuery = `mutation update($id: ID!, $sid: String, $name: String) {
   updateEmployee(id: $id, input: {sid: $sid, name: $name}) {
      id, name, sid
    }
@@ -49,7 +49,7 @@ export const updateEmployee = (id, sid, name) => {
         { headers: headers }
       )
       .then(function (response) {
-        resolve(JSON.stringify(response.data));
+        resolve(JSON.stringify(response.data, null, 1));
       })
       .catch(function (error) {
         alert(error);

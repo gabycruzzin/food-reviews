@@ -56,3 +56,29 @@ export const updateEmployee = (id, sid, name) => {
       });
   });
 };
+
+var deleteQuery = `mutation delete($id: ID!) {
+  deleteEmployee(id: $id) {
+     id, name, sid
+   }
+}`;
+
+export const deleteEmployee = (id) => {
+  return new Promise((resolve) => {
+    axios
+      .post(
+        "http://localhost:4000/graphql",
+        {
+          query: deleteQuery,
+          variables: { id },
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        resolve(JSON.stringify(response.data, null, 1));
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  });
+};

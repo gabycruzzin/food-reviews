@@ -60,7 +60,7 @@ export const CreateEmployee = () => {
             New Employee Created
           </Typography>
           <Typography variant="caption" gutterBottom>
-            {response.name} - {response.sid} - {response.id}
+            {response}
           </Typography>
         </div>
       )}

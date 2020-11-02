@@ -5,7 +5,7 @@ const headers = {
   Accept: "application/json",
 };
 
-var query = `mutation EmployeeInput($sid: String, $name: String) {
+var createQuery = `mutation EmployeeInput($sid: String, $name: String) {
   createEmployee(input: {sid: $sid, name: $name}) {
      id, name, sid
    }
@@ -17,16 +17,42 @@ export const createEmployee = (sid, name) => {
       .post(
         "http://localhost:4000/graphql",
         {
-          query,
+          query: createQuery,
           variables: { sid, name },
         },
         { headers: headers }
       )
       .then(function (response) {
-        resolve(response.data.data.createEmployee);
+        resolve(JSON.stringify(response.data));
       })
       .catch(function (error) {
-        alert(error.response);
+        alert(error);
+      });
+  });
+};
+
+var updateQuery = `mutation EmployeeInput($id: ID!, $sid: String, $name: String) {
+  updateEmployee(id: $id, input: {sid: $sid, name: $name}) {
+     id, name, sid
+   }
+}`;
+
+export const updateEmployee = (id, sid, name) => {
+  return new Promise((resolve) => {
+    axios
+      .post(
+        "http://localhost:4000/graphql",
+        {
+          query: updateQuery,
+          variables: { id, sid, name },
+        },
+        { headers: headers }
+      )
+      .then(function (response) {
+        resolve(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        alert(error);
       });
   });
 };

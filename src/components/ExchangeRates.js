@@ -1,4 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
+import { Typography } from "@material-ui/core";
 
 const EXCHANGE_RATES = gql`
   query GetExchangeRates {
@@ -17,9 +18,9 @@ export const ExchangeRates = () => {
 
   return data.rates.map(({ currency, rate }) => (
     <div key={currency}>
-      <p>
+      <Typography>
         {currency}: {rate}
-      </p>
+      </Typography>
     </div>
   ));
 };

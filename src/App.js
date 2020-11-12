@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { ExchangeRates } from "./components/ExchangeRates";
+import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
 function App() {
   const useStyles = makeStyles((theme) => ({
@@ -30,6 +31,7 @@ function App() {
   return (
     <div className={classes.root}>
       <Grid container className={classes.componentContainer} spacing={3}>
+        <AmplifySignOut />
         <Grid item xs={6}>
           <Paper className={classes.paper}>
             <CreateEmployee />
@@ -60,4 +62,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);

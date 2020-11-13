@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "myappb7238f4e_identitypool_b7238f4e",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "myappb7238f4e",
-    "userPoolName": "myappb7238f4e_userpool_b7238f4e",
+    "identityPoolName": "myapp_identitypool_b485e500",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "myappb485e500",
+    "userPoolName": "myapp_userpool_b485e500",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,11 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "myappbb7238f4e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "myappb485e500_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "b7238f4e",
-    "resourceName": "myappb7238f4e",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "cognito657a11ab",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -44,9 +43,5 @@
             "UnauthRole",
             "Arn"
         ]
-    },
-    "useDefault": "default",
-    "userPoolGroupList": [],
-    "serviceName": "Cognito",
-    "dependsOn": []
+    }
 }

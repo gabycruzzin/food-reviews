@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { API, Storage } from "aws-amplify";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { listNotes } from "./graphql/queries";
 import {
   createNote as createNoteMutation,
@@ -9,7 +8,7 @@ import {
 
 const initialFormState = { name: "", description: "" };
 
-function App() {
+export const App = () => {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
 
@@ -90,9 +89,6 @@ function App() {
           </div>
         ))}
       </div>
-      <AmplifySignOut />
     </div>
   );
-}
-
-export default withAuthenticator(App);
+};

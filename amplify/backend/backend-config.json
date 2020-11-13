@@ -1,10 +1,9 @@
 {
   "auth": {
-    "myappb7238f4e": {
+    "cognito657a11ab": {
       "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
+      "serviceType": "managed",
+      "providerPlugin": "awscloudformation"
     }
   },
   "api": {

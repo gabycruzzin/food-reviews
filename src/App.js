@@ -5,12 +5,30 @@ import {
   createNote as createNoteMutation,
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 const initialFormState = { name: "", description: "" };
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  componentContainer: {
+    width: "100%",
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+  },
+}));
 
 export const App = () => {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
+  const classes = useStyles();
 
   useEffect(() => {
     fetchNotes();
@@ -63,32 +81,36 @@ export const App = () => {
   }
 
   return (
-    <div className="App">
-      <h1>My Notes App</h1>
-      <input
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        placeholder="Note name"
-        value={formData.name}
-      />
-      <input
-        onChange={(e) =>
-          setFormData({ ...formData, description: e.target.value })
-        }
-        placeholder="Note description"
-        value={formData.description}
-      />
-      <input type="file" onChange={onChange} />
-      <button onClick={createNote}>Create Note</button>
-      <div style={{ marginBottom: 30 }}>
+    <div className={classes.root}>
+      <h1>My Recipes</h1>
+      <Grid container className={classes.componentContainer} spacing={3}>
+        <Grid item xs={12}>
+          <input
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="Note name"
+            value={formData.name}
+          />
+          <input
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+            placeholder="Note description"
+            value={formData.description}
+          />
+          <input type="file" onChange={onChange} />
+          <button onClick={createNote}>Create Note</button>
+        </Grid>
         {notes.map((note) => (
-          <div key={note.id || note.name}>
-            <h2>{note.name}</h2>
-            <p>{note.description}</p>
-            <button onClick={() => deleteNote(note)}>Delete note</button>
-            {note.image && <img src={note.image} style={{ width: 400 }} />}
-          </div>
+          <Grid item xs={3} key={note.id || note.name}>
+            <Paper className={classes.paper}>
+              <h2>{note.name}</h2>
+              <p>{note.description}</p>
+              <button onClick={() => deleteNote(note)}>Delete note</button>
+              {note.image && <img src={note.image} style={{ width: 400 }} />}
+            </Paper>
+          </Grid>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 };

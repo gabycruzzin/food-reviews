@@ -6,7 +6,6 @@ import {
   deleteNote as deleteNoteMutation,
 } from "./graphql/mutations";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Button, IconButton, TextField, Typography } from "@material-ui/core";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -15,6 +14,7 @@ import Hidden from "@material-ui/core/Hidden";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
+import { Recipe } from "./components/Recipe";
 
 const initialFormState = { name: "", description: "" };
 const drawerWidth = 400;
@@ -35,11 +35,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
   },
   input: {
     display: "none",
@@ -221,32 +216,13 @@ export const App = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
         <Grid container className={classes.componentContainer} spacing={3}>
           {notes.map((note) => (
-            <Grid item xs={12} sm={6} md={3} lg={3} key={note.id || note.name}>
-              <Paper className={classes.paper}>
-                <Typography variant="h4">{note.name}</Typography>
-                <Typography variant="body1" style={{ whiteSpace: "pre-line" }}>
-                  {note.description}
-                </Typography>
-                {note.image && (
-                  <img
-                    src={note.image}
-                    alt=""
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                )}
-                <Button
-                  variant="outlined"
-                  size="small"
-                  disableElevation
-                  onClick={() => deleteNote(note)}
-                >
-                  Delete note
-                </Button>
-              </Paper>
-            </Grid>
+            <Recipe
+              key={note.id || note.name}
+              note={note}
+              deleteNote={deleteNote}
+            />
           ))}
         </Grid>
       </main>

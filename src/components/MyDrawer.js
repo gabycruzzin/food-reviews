@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   recipeContainer: {
     display: "grid",
     gridTemplateColumns: 300,
+    margin: "36px auto",
   },
 }));
 

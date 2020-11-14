@@ -170,7 +170,9 @@ export const App = (props) => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <Typography variant="h2">My Recipes</Typography>
+        <Typography variant="h2" gutterBottom>
+          My Recipes
+        </Typography>
         <Grid container className={classes.componentContainer} spacing={3}>
           {notes.map((note) => (
             <Recipe

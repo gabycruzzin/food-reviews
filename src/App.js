@@ -8,6 +8,8 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import { Button, IconButton, TextField, Typography } from "@material-ui/core";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const initialFormState = { name: "", description: "" };
 
@@ -22,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
+  },
+  input: {
+    display: "none",
   },
 }));
 
@@ -82,31 +87,76 @@ export const App = () => {
 
   return (
     <div className={classes.root}>
-      <h1>My Recipes</h1>
+      <Typography variant="h2" gutterBottom>
+        My Recipes
+      </Typography>
       <Grid container className={classes.componentContainer} spacing={3}>
-        <Grid item xs={12}>
-          <input
+        <Grid item xs>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder="Note name"
             value={formData.name}
           />
-          <input
+          <TextField
+            id="standard-multiline-static"
+            variant="outlined"
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
             }
-            placeholder="Note description"
+            label="Recipe"
+            multiline
+            rows={4}
             value={formData.description}
           />
-          <input type="file" onChange={onChange} />
-          <button onClick={createNote}>Create Note</button>
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="icon-button-file"
+            type="file"
+            onChange={onChange}
+          />
+          <label htmlFor="icon-button-file">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+          <Button
+            onClick={createNote}
+            variant="contained"
+            color="primary"
+            disableElevation
+          >
+            Create Note
+          </Button>
         </Grid>
+      </Grid>
+      <Grid container className={classes.componentContainer} spacing={3}>
         {notes.map((note) => (
-          <Grid item xs={3} key={note.id || note.name}>
+          <Grid item xs={12} sm={6} md={3} lg={3} key={note.id || note.name}>
             <Paper className={classes.paper}>
-              <h2>{note.name}</h2>
-              <p>{note.description}</p>
-              <button onClick={() => deleteNote(note)}>Delete note</button>
-              {note.image && <img src={note.image} style={{ width: 400 }} />}
+              <Typography variant="h4">{note.name}</Typography>
+              <Typography variant="body1">{note.description}</Typography>
+              {note.image && (
+                <img
+                  src={note.image}
+                  alt=""
+                  style={{ width: "100%", height: "auto" }}
+                />
+              )}
+              <Button
+                variant="outlined"
+                size="small"
+                disableElevation
+                onClick={() => deleteNote(note)}
+              >
+                Delete note
+              </Button>
             </Paper>
           </Grid>
         ))}

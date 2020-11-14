@@ -13,7 +13,7 @@ export const Recipe = ({ note, deleteNote }) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={6} md={3} lg={3}>
+    <Grid item xs={12} sm={6} md={6} lg={3}>
       <Paper className={classes.paper}>
         <Typography variant="h4">{note.name}</Typography>
         <Typography variant="body1" style={{ whiteSpace: "pre-line" }}>

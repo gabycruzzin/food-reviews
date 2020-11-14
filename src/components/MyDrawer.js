@@ -1,90 +1,70 @@
-import React, { useState } from "react";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-
-const drawerWidth = 240;
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import Grid from "@material-ui/core/Grid";
+import { Button, IconButton, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
+  input: {
+    display: "none",
   },
-  drawer: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+  recipeContainer: {
+    display: "grid",
+    gridTemplateColumns: 300,
   },
 }));
 
-function MyDrawer(props) {
-  const { window } = props;
+export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Typography paragraph>add recipe here</Typography>
-    </div>
-  );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>list of recipes</Typography>
-      </main>
-    </div>
+    <Grid container justify="center" className={classes.recipeContainer}>
+      <TextField
+        id="outlined-basic"
+        label="Name"
+        variant="outlined"
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        value={formData.name}
+      />
+      <TextField
+        id="standard-multiline-static"
+        variant="outlined"
+        onChange={(e) =>
+          setFormData({ ...formData, description: e.target.value })
+        }
+        label="Recipe"
+        multiline
+        rows={6}
+        value={formData.description}
+      />
+      <Grid container justify="space-between">
+        <div>
+          <input
+            accept="image/*"
+            className={classes.input}
+            id="icon-button-file"
+            type="file"
+            onChange={onUpload}
+          />
+          <label htmlFor="icon-button-file">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </div>
+        <Button
+          onClick={createNote}
+          variant="contained"
+          color="primary"
+          disableElevation
+        >
+          Create Note
+        </Button>
+      </Grid>
+    </Grid>
   );
-}
-
-export default MyDrawer;
+};

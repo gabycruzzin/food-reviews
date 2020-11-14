@@ -7,14 +7,14 @@ import {
 } from "./graphql/mutations";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Button, IconButton, TextField, Typography } from "@material-ui/core";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import { IconButton, Typography } from "@material-ui/core";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import { Recipe } from "./components/Recipe";
+import { MyDrawer } from "./components/MyDrawer";
 
 const initialFormState = { name: "", description: "" };
 const drawerWidth = 400;
@@ -22,13 +22,20 @@ const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    [theme.breakpoints.up("md")]: {
+      width: "calc(100% - 400px)",
+    },
   },
   componentContainer: {
     width: "100%",
   },
   appBar: {
-    backgroundColor: "transparent",
-    color: "inherit",
+    [theme.breakpoints.up("md")]: {
+      backgroundColor: "transparent",
+      color: "inherit",
+    },
+    top: "auto",
+    bottom: 0,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -36,20 +43,12 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  input: {
-    display: "none",
-  },
-  toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-  },
-  recipeContainer: {
-    display: "grid",
-    gridTemplateColumns: 300,
   },
 }));
 
@@ -117,59 +116,6 @@ export const App = (props) => {
     });
   }
 
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Grid container justify="center" className={classes.recipeContainer}>
-        <TextField
-          id="outlined-basic"
-          label="Name"
-          variant="outlined"
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          value={formData.name}
-        />
-        <TextField
-          id="standard-multiline-static"
-          variant="outlined"
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-          label="Recipe"
-          multiline
-          rows={6}
-          value={formData.description}
-        />
-        <Grid container justify="space-between">
-          <div>
-            <input
-              accept="image/*"
-              className={classes.input}
-              id="icon-button-file"
-              type="file"
-              onChange={onUpload}
-            />
-            <label htmlFor="icon-button-file">
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>
-          </div>
-          <Button
-            onClick={createNote}
-            variant="contained"
-            color="primary"
-            disableElevation
-          >
-            Create Note
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
-  );
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar} elevation={0}>
@@ -183,7 +129,6 @@ export const App = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h2">My Recipes</Typography>
         </Toolbar>
       </AppBar>
       <nav>
@@ -198,7 +143,12 @@ export const App = (props) => {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <MyDrawer
+              createNote={createNote}
+              onUpload={onUpload}
+              setFormData={setFormData}
+              formData={formData}
+            />
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -210,12 +160,17 @@ export const App = (props) => {
             anchor={"right"}
             open
           >
-            {drawer}
+            <MyDrawer
+              createNote={createNote}
+              onUpload={onUpload}
+              setFormData={setFormData}
+              formData={formData}
+            />
           </Drawer>
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <Typography variant="h2">My Recipes</Typography>
         <Grid container className={classes.componentContainer} spacing={3}>
           {notes.map((note) => (
             <Recipe

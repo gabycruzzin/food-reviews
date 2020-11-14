@@ -39,7 +39,7 @@ export const App = () => {
     fetchNotes();
   }, []);
 
-  async function onChange(e) {
+  async function onUpload(e) {
     if (!e.target.files[0]) return;
     const file = e.target.files[0];
     setFormData({ ...formData, image: file.name });
@@ -91,7 +91,39 @@ export const App = () => {
         My Recipes
       </Typography>
       <Grid container className={classes.componentContainer} spacing={3}>
-        <Grid item xs>
+        {notes.map((note) => (
+          <Grid item xs={12} sm={6} md={3} lg={3} key={note.id || note.name}>
+            <Paper className={classes.paper}>
+              <Typography variant="h4">{note.name}</Typography>
+              <Typography variant="body1" style={{ whiteSpace: "pre-line" }}>
+                {note.description}
+              </Typography>
+              {note.image && (
+                <img
+                  src={note.image}
+                  alt=""
+                  style={{ width: "100%", height: "auto" }}
+                />
+              )}
+              <Button
+                variant="outlined"
+                size="small"
+                disableElevation
+                onClick={() => deleteNote(note)}
+              >
+                Delete note
+              </Button>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid
+        container
+        justify="center"
+        className={classes.componentContainer}
+        spacing={3}
+      >
+        <Grid item xs={4}>
           <TextField
             id="outlined-basic"
             label="Name"
@@ -99,6 +131,7 @@ export const App = () => {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             value={formData.name}
           />
+          <br />
           <TextField
             id="standard-multiline-static"
             variant="outlined"
@@ -107,15 +140,16 @@ export const App = () => {
             }
             label="Recipe"
             multiline
-            rows={4}
+            rows={6}
             value={formData.description}
           />
+          <br />
           <input
             accept="image/*"
             className={classes.input}
             id="icon-button-file"
             type="file"
-            onChange={onChange}
+            onChange={onUpload}
           />
           <label htmlFor="icon-button-file">
             <IconButton
@@ -135,31 +169,6 @@ export const App = () => {
             Create Note
           </Button>
         </Grid>
-      </Grid>
-      <Grid container className={classes.componentContainer} spacing={3}>
-        {notes.map((note) => (
-          <Grid item xs={12} sm={6} md={3} lg={3} key={note.id || note.name}>
-            <Paper className={classes.paper}>
-              <Typography variant="h4">{note.name}</Typography>
-              <Typography variant="body1">{note.description}</Typography>
-              {note.image && (
-                <img
-                  src={note.image}
-                  alt=""
-                  style={{ width: "100%", height: "auto" }}
-                />
-              )}
-              <Button
-                variant="outlined"
-                size="small"
-                disableElevation
-                onClick={() => deleteNote(note)}
-              >
-                Delete note
-              </Button>
-            </Paper>
-          </Grid>
-        ))}
       </Grid>
     </div>
   );

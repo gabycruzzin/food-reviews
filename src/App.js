@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  drawerStyle: {
+    border: "none",
+  },
   barColor: {
     [theme.breakpoints.down("sm")]: {
       backgroundColor: "#b00b01",
@@ -169,6 +172,7 @@ export const App = (props) => {
           <Drawer
             classes={{
               paper: classes.drawerPaper,
+              paperAnchorDockedRight: classes.drawerStyle,
             }}
             variant="permanent"
             anchor={"right"}

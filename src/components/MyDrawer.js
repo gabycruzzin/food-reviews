@@ -11,7 +11,12 @@ const useStyles = makeStyles((theme) => ({
   recipeContainer: {
     display: "grid",
     gridTemplateColumns: 300,
-    margin: "36px auto",
+    [theme.breakpoints.down("sm")]: {
+      margin: "36px auto",
+    },
+    [theme.breakpoints.up("md")]: {
+      margin: "auto",
+    },
   },
   buttonColor: {
     backgroundColor: "#b00b01",

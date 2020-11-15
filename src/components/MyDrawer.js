@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: 300,
     margin: "36px auto",
   },
+  buttonColor: {
+    backgroundColor: "#b00b01",
+  },
+  cameraColor: { color: "#b00b01" },
 }));
 
 export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
@@ -52,6 +56,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
               color="primary"
               aria-label="upload picture"
               component="span"
+              classes={{ colorPrimary: classes.cameraColor }}
             >
               <PhotoCamera />
             </IconButton>
@@ -61,6 +66,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
           onClick={createNote}
           variant="contained"
           color="primary"
+          classes={{ containedPrimary: classes.buttonColor }}
           disableElevation
         >
           Create Note

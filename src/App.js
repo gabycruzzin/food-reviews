@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  barColor: {
+    backgroundColor: "#b00b01",
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -118,7 +121,12 @@ export const App = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" className={classes.appBar} elevation={0}>
+      <AppBar
+        position="fixed"
+        className={classes.appBar}
+        classes={{ colorPrimary: classes.barColor }}
+        elevation={0}
+      >
         <Toolbar>
           <IconButton
             color="inherit"

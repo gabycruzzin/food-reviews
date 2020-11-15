@@ -173,7 +173,7 @@ export const App = (props) => {
         <Typography variant="h2" gutterBottom>
           My Recipes
         </Typography>
-        <Grid container className={classes.componentContainer} spacing={3}>
+        <Grid container className={classes.componentContainer} spacing={1}>
           {notes.map((note) => (
             <Recipe
               key={note.id || note.name}

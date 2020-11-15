@@ -9,19 +9,24 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
   recipeContainer: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+    },
     display: "grid",
-    gridTemplateColumns: 300,
     [theme.breakpoints.down("sm")]: {
       margin: "36px auto",
+      gridTemplateColumns: 300,
     },
     [theme.breakpoints.up("md")]: {
       margin: "auto",
+      gridTemplateColumns: "90%",
     },
   },
   buttonColor: {
     backgroundColor: "#b00b01",
+    margin: theme.spacing(1),
   },
-  cameraColor: { color: "#b00b01" },
+  camera: { color: "#b00b01" },
 }));
 
 export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
@@ -47,36 +52,32 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
         rows={6}
         value={formData.description}
       />
-      <Grid container justify="space-between">
-        <div>
-          <input
-            accept="image/*"
-            className={classes.input}
-            id="icon-button-file"
-            type="file"
-            onChange={onUpload}
-          />
-          <label htmlFor="icon-button-file">
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-              classes={{ colorPrimary: classes.cameraColor }}
-            >
-              <PhotoCamera />
-            </IconButton>
-          </label>
-        </div>
-        <Button
-          onClick={createNote}
-          variant="contained"
+      <input
+        accept="image/*"
+        className={classes.input}
+        id="icon-button-file"
+        type="file"
+        onChange={onUpload}
+      />
+      <label htmlFor="icon-button-file" style={{ textAlign: "center" }}>
+        <IconButton
           color="primary"
-          classes={{ containedPrimary: classes.buttonColor }}
-          disableElevation
+          aria-label="upload picture"
+          component="span"
+          classes={{ colorPrimary: classes.camera }}
         >
-          Create Note
-        </Button>
-      </Grid>
+          <PhotoCamera />
+        </IconButton>
+      </label>
+      <Button
+        onClick={createNote}
+        variant="contained"
+        color="primary"
+        classes={{ containedPrimary: classes.buttonColor }}
+        disableElevation
+      >
+        Create Note
+      </Button>
     </Grid>
   );
 };

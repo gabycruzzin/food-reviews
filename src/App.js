@@ -18,17 +18,14 @@ import { MyDrawer } from "./components/MyDrawer";
 import { ReactComponent as Title } from "./imgs/title.svg";
 
 const initialFormState = { name: "", description: "" };
-const drawerWidth = 400;
+const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     [theme.breakpoints.up("md")]: {
-      width: "calc(100% - 400px)",
+      width: "calc(100% - 350px)",
     },
-  },
-  componentContainer: {
-    width: "100%",
   },
   appBar: {
     [theme.breakpoints.up("md")]: {
@@ -191,7 +188,7 @@ export const App = (props) => {
         <div className={classes.title}>
           <Title style={{ width: "30%" }} />
         </div>
-        <Grid container className={classes.componentContainer} spacing={1}>
+        <Grid container>
           {notes.map((note) => (
             <Recipe
               key={note.id || note.name}

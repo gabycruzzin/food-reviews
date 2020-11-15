@@ -7,7 +7,7 @@ import {
 } from "./graphql/mutations";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { IconButton, Typography } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -15,6 +15,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import { Recipe } from "./components/Recipe";
 import { MyDrawer } from "./components/MyDrawer";
+import { ReactComponent as Title } from "./imgs/title.svg";
 
 const initialFormState = { name: "", description: "" };
 const drawerWidth = 400;
@@ -47,7 +48,12 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   barColor: {
-    backgroundColor: "#b00b01",
+    [theme.breakpoints.down("sm")]: {
+      backgroundColor: "#b00b01",
+    },
+  },
+  title: {
+    textAlign: "center",
   },
   content: {
     flexGrow: 1,
@@ -178,9 +184,9 @@ export const App = (props) => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <Typography variant="h2" gutterBottom>
-          My Recipes
-        </Typography>
+        <div className={classes.title}>
+          <Title style={{ width: "30%" }} />
+        </div>
         <Grid container className={classes.componentContainer} spacing={1}>
           {notes.map((note) => (
             <Recipe

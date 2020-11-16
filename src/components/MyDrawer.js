@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Grid from "@material-ui/core/Grid";
-import { Button, IconButton, TextField } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
+import { Box, Button, IconButton, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -27,10 +28,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   camera: { color: "#b00b01" },
+  flexContainer: {
+    textAlign: "center",
+    display: "flex",
+  },
+  autoMargin: { margin: "auto" },
 }));
 
 export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
+  const [value, setValue] = useState(0);
 
   return (
     <Grid container justify="center" className={classes.recipeContainer}>
@@ -59,16 +66,31 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
         type="file"
         onChange={onUpload}
       />
-      <label htmlFor="icon-button-file" style={{ textAlign: "center" }}>
+      <label htmlFor="icon-button-file" className={classes.flexContainer}>
         <IconButton
           color="primary"
           aria-label="upload picture"
           component="span"
           classes={{ colorPrimary: classes.camera }}
+          className={classes.autoMargin}
         >
           <PhotoCamera />
         </IconButton>
       </label>
+      <Box
+        component="fieldset"
+        borderColor="transparent"
+        className={classes.flexContainer}
+      >
+        <Rating
+          className={classes.autoMargin}
+          name="simple-controlled"
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        />
+      </Box>
       <Button
         onClick={createNote}
         variant="contained"

@@ -13,7 +13,7 @@ import Hidden from "@material-ui/core/Hidden";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
-import { Recipe } from "./components/Recipe";
+import { Review } from "./components/Review";
 import { MyDrawer } from "./components/MyDrawer";
 import { ReactComponent as Title } from "./imgs/title.svg";
 
@@ -190,7 +190,7 @@ export const App = (props) => {
         </div>
         <Grid container>
           {notes.map((note) => (
-            <Recipe
+            <Review
               key={note.id || note.name}
               note={note}
               deleteNote={deleteNote}

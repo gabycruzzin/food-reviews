@@ -40,7 +40,7 @@ export const Recipe = ({ note, deleteNote }) => {
                 disableElevation
                 onClick={() => deleteNote(note)}
               >
-                Delete note
+                Delete Review
               </Button>
             </Paper>
           </Fade>

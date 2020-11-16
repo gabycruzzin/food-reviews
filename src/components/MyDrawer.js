@@ -36,7 +36,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
     <Grid container justify="center" className={classes.recipeContainer}>
       <TextField
         id="outlined-basic"
-        label="Name"
+        label="Restaurant"
         variant="outlined"
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         value={formData.name}
@@ -47,7 +47,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
         onChange={(e) =>
           setFormData({ ...formData, description: e.target.value })
         }
-        label="Recipe"
+        label="Review"
         multiline
         rows={6}
         value={formData.description}
@@ -76,7 +76,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
         classes={{ containedPrimary: classes.buttonColor }}
         disableElevation
       >
-        Create Note
+        Add Review
       </Button>
     </Grid>
   );

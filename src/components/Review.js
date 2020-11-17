@@ -17,7 +17,7 @@ import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
   },
   expand: {
     transform: "rotate(0deg)",
@@ -57,7 +57,7 @@ export const Review = ({ note, deleteNote }) => {
   };
 
   return (
-    <Grid item xs={12} sm={12} md={12} lg={6}>
+    <Grid item xs={12} sm={6} md={6} lg={4} xl={3}>
       <Card className={classes.root}>
         <CardHeader
           avatar={

@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       margin: "36px auto",
       gridTemplateColumns: 300,
-      justifyContent: "center",
     },
     [theme.breakpoints.up("md")]: {
       margin: "auto",
@@ -40,7 +39,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.recipeContainer}>
+    <Grid container justify="center" className={classes.recipeContainer}>
       <TextField
         id="outlined-basic"
         label="Restaurant"

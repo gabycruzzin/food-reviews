@@ -186,7 +186,7 @@ export const App = (props) => {
       </nav>
       <main className={classes.content}>
         <div className={classes.title}>
-          <Title style={{ width: "30%" }} />
+          <Title style={{ width: "20em" }} />
         </div>
         <Grid container>
           {notes.map((note) => (

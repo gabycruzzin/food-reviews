@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   squareContainer: {
     position: "relative",
-    height: "50vh",
+    height: "15em",
     overflow: "hidden",
   },
   picture: {

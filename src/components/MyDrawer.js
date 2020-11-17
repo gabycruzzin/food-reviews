@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       margin: "36px auto",
       gridTemplateColumns: 300,
+      justifyContent: "center",
     },
     [theme.breakpoints.up("md")]: {
       margin: "auto",

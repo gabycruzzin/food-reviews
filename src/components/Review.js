@@ -48,7 +48,7 @@ export const Review = ({ note, deleteNote }) => {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              R
+              {note.author.charAt(0).toUpperCase()}
             </Avatar>
           }
           action={

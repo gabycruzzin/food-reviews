@@ -32,6 +32,20 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: "#b00b01",
   },
+  squareContainer: {
+    position: "relative",
+    height: "50vh",
+    overflow: "hidden",
+  },
+  picture: {
+    position: "absolute",
+    maxWidth: "100%",
+    width: "100%",
+    height: "auto",
+    top: "50%",
+    left: "50%",
+    transform: "translate( -50%, -50%)",
+  },
 }));
 
 export const Review = ({ note, deleteNote }) => {
@@ -64,12 +78,8 @@ export const Review = ({ note, deleteNote }) => {
             day: "numeric",
           })}
         />
-        <CardMedia title={note.name}>
-          <img
-            src={note.image}
-            alt=""
-            style={{ width: "100%", height: "auto" }}
-          />
+        <CardMedia title={note.name} className={classes.squareContainer}>
+          <img src={note.image} alt="" className={classes.picture} />
         </CardMedia>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="legend">

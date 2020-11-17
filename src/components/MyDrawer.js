@@ -39,7 +39,7 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" className={classes.recipeContainer}>
+    <Grid container className={classes.recipeContainer}>
       <TextField
         id="outlined-basic"
         label="Restaurant"

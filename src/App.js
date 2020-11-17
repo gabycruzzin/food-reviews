@@ -17,7 +17,7 @@ import { Review } from "./components/Review";
 import { MyDrawer } from "./components/MyDrawer";
 import { ReactComponent as Title } from "./imgs/title.svg";
 
-const initialFormState = { name: "", description: "" };
+const initialFormState = { name: "", author: "", description: "", rating: 0 };
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({

@@ -11,6 +11,8 @@ export const createNote = /* GraphQL */ `
       name
       description
       image
+      rating
+      author
       createdAt
       updatedAt
     }
@@ -26,6 +28,8 @@ export const updateNote = /* GraphQL */ `
       name
       description
       image
+      rating
+      author
       createdAt
       updatedAt
     }
@@ -41,6 +45,8 @@ export const deleteNote = /* GraphQL */ `
       name
       description
       image
+      rating
+      author
       createdAt
       updatedAt
     }

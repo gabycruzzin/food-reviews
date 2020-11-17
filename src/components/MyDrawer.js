@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Grid from "@material-ui/core/Grid";
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
 
   return (
     <Grid container justify="center" className={classes.recipeContainer}>
@@ -47,6 +46,13 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
         variant="outlined"
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         value={formData.name}
+      />
+      <TextField
+        id="outlined-basic2"
+        label="Author"
+        variant="outlined"
+        onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+        value={formData.author}
       />
       <TextField
         id="standard-multiline-static"
@@ -85,9 +91,9 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
         <Rating
           className={classes.autoMargin}
           name="simple-controlled"
-          value={value}
+          value={formData.rating}
           onChange={(event, newValue) => {
-            setValue(newValue);
+            setFormData({ ...formData, rating: newValue });
           }}
         />
       </Box>

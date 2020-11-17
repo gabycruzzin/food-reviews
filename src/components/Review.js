@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Grid } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,11 +71,11 @@ export const Review = ({ note, deleteNote }) => {
             style={{ width: "100%", height: "auto" }}
           />
         </CardMedia>
-
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Person's rating:
+          <Typography variant="body2" color="textSecondary" component="legend">
+            {note.author}'s rating:
           </Typography>
+          <Rating name="read-only" value={note.rating} readOnly />
         </CardContent>
         <CardActions disableSpacing>
           <IconButton

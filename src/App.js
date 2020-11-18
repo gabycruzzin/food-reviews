@@ -125,6 +125,7 @@ export const App = (props) => {
       const image = await Storage.get(formData.image);
       formData.image = image;
     }
+    fetchNotes();
     setNotes([...notes, formData]);
     setFormData(initialFormState);
   }

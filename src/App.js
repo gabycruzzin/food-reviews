@@ -16,6 +16,8 @@ import AppBar from "@material-ui/core/AppBar";
 import { Review } from "./components/Review";
 import { MyDrawer } from "./components/MyDrawer";
 import { ReactComponent as Title } from "./imgs/title.svg";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const initialFormState = {
   name: "",
@@ -67,12 +69,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export const App = (props) => {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
   const classes = useStyles();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
+
+  const handleClick = () => {
+    setSnackbar(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbar(false);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -125,6 +144,7 @@ export const App = (props) => {
       const image = await Storage.get(formData.image);
       formData.image = image;
     }
+    handleClick();
     fetchNotes();
     setNotes([...notes, formData]);
     setFormData(initialFormState);
@@ -212,6 +232,21 @@ export const App = (props) => {
           ))}
         </Grid>
       </main>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackbar}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Success!
+        </Alert>
+      </Snackbar>
+      {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Make sure to fill everything out and add a picture!
+        </Alert>
+      </Snackbar> */}
     </div>
   );
 };

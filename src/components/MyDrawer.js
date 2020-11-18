@@ -41,13 +41,7 @@ const useStyles = makeStyles((theme) => ({
   autoMargin: { margin: "auto" },
 }));
 
-export const MyDrawer = ({
-  uploadName,
-  setFormData,
-  formData,
-  onUpload,
-  createNote,
-}) => {
+export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
 
   return (
@@ -100,7 +94,7 @@ export const MyDrawer = ({
         color="textSecondary"
         className={classes.autoMargin}
       >
-        {uploadName}
+        {formData.image}
       </Typography>
       <Box
         component="fieldset"

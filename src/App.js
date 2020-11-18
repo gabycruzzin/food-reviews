@@ -17,7 +17,13 @@ import { Review } from "./components/Review";
 import { MyDrawer } from "./components/MyDrawer";
 import { ReactComponent as Title } from "./imgs/title.svg";
 
-const initialFormState = { name: "", author: "", description: "", rating: 0 };
+const initialFormState = {
+  name: "",
+  author: "",
+  description: "",
+  image: "",
+  rating: 0,
+};
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +73,6 @@ export const App = (props) => {
   const classes = useStyles();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [uploadName, setUploadName] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -83,7 +88,6 @@ export const App = (props) => {
   async function onUpload(e) {
     if (!e.target.files[0]) return;
     const file = e.target.files[0];
-    setUploadName(file.name);
     setFormData({ ...formData, image: file.name });
     await Storage.put(file.name, file);
     fetchNotes();
@@ -105,7 +109,14 @@ export const App = (props) => {
   }
 
   async function createNote() {
-    if (!formData.name || !formData.description) return;
+    if (
+      !formData.name ||
+      !formData.author ||
+      !formData.description ||
+      !formData.image ||
+      !formData.rating
+    )
+      return;
     await API.graphql({
       query: createNoteMutation,
       variables: { input: formData },
@@ -115,7 +126,6 @@ export const App = (props) => {
       formData.image = image;
     }
     setNotes([...notes, formData]);
-    setUploadName("");
     setFormData(initialFormState);
   }
 
@@ -161,7 +171,6 @@ export const App = (props) => {
             }}
           >
             <MyDrawer
-              uploadName={uploadName}
               createNote={createNote}
               onUpload={onUpload}
               setFormData={setFormData}
@@ -180,7 +189,6 @@ export const App = (props) => {
             open
           >
             <MyDrawer
-              uploadName={uploadName}
               createNote={createNote}
               onUpload={onUpload}
               setFormData={setFormData}

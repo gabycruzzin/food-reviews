@@ -3,7 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Grid from "@material-ui/core/Grid";
 import Rating from "@material-ui/lab/Rating";
-import { Box, Button, IconButton, TextField } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  IconButton,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -35,7 +41,13 @@ const useStyles = makeStyles((theme) => ({
   autoMargin: { margin: "auto" },
 }));
 
-export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
+export const MyDrawer = ({
+  uploadName,
+  setFormData,
+  formData,
+  onUpload,
+  createNote,
+}) => {
   const classes = useStyles();
 
   return (
@@ -83,6 +95,13 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
           <PhotoCamera />
         </IconButton>
       </label>
+      <Typography
+        variant="body2"
+        color="textSecondary"
+        className={classes.autoMargin}
+      >
+        {uploadName}
+      </Typography>
       <Box
         component="fieldset"
         borderColor="transparent"

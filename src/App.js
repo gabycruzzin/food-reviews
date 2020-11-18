@@ -67,6 +67,7 @@ export const App = (props) => {
   const classes = useStyles();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [uploadName, setUploadName] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -82,6 +83,7 @@ export const App = (props) => {
   async function onUpload(e) {
     if (!e.target.files[0]) return;
     const file = e.target.files[0];
+    setUploadName(file.name);
     setFormData({ ...formData, image: file.name });
     await Storage.put(file.name, file);
     fetchNotes();
@@ -113,6 +115,7 @@ export const App = (props) => {
       formData.image = image;
     }
     setNotes([...notes, formData]);
+    setUploadName("");
     setFormData(initialFormState);
   }
 
@@ -158,6 +161,7 @@ export const App = (props) => {
             }}
           >
             <MyDrawer
+              uploadName={uploadName}
               createNote={createNote}
               onUpload={onUpload}
               setFormData={setFormData}
@@ -176,6 +180,7 @@ export const App = (props) => {
             open
           >
             <MyDrawer
+              uploadName={uploadName}
               createNote={createNote}
               onUpload={onUpload}
               setFormData={setFormData}

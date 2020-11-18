@@ -81,20 +81,24 @@ export const Review = ({ note, deleteNote }) => {
         <CardMedia title={note.name} className={classes.squareContainer}>
           <img src={note.image} alt="" className={classes.picture} />
         </CardMedia>
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="legend">
-            {note.author}'s rating:
-          </Typography>
-          <Rating name="read-only" value={note.rating} readOnly />
-        </CardContent>
         <CardActions disableSpacing>
+          <div>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="legend"
+            >
+              {note.author}'s rating:
+            </Typography>
+            <Rating name="read-only" value={note.rating} readOnly />
+          </div>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-            aria-label="show more"
+            aria-label="Review"
           >
             <ExpandMoreIcon />
           </IconButton>

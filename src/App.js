@@ -151,7 +151,7 @@ export const App = (props) => {
     fetchNotes();
     setNotes([...notes, formData]);
     setFormData(initialFormState);
-    handleDrawerToggle();
+    setMobileOpen(false);
   }
 
   async function deleteNote({ id }) {

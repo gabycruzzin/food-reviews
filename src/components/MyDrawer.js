@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   buttonColor: {
     backgroundColor: "#b00b01",
     margin: theme.spacing(1),
+    "&:hover": {
+      backgroundColor: theme.palette.success.dark,
+    },
   },
   camera: { color: "#b00b01" },
   flexContainer: {

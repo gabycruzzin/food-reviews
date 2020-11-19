@@ -251,7 +251,7 @@ export const App = (props) => {
         autoHideDuration={6000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="error">
+        <Alert onClose={handleClose} severity="warning">
           Make sure to fill everything out and add a picture!
         </Alert>
       </Snackbar>

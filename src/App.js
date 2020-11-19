@@ -26,6 +26,7 @@ const initialFormState = {
   image: "",
   rating: 0,
 };
+const initialSnackState = { success: false, error: false };
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
@@ -79,10 +80,10 @@ export const App = (props) => {
   const classes = useStyles();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [snackbar, setSnackbar] = useState(false);
+  const [snackbar, setSnackbar] = useState(initialSnackState);
 
-  const handleClick = () => {
-    setSnackbar(true);
+  const openSnackbar = (data) => {
+    setSnackbar(data);
   };
 
   const handleClose = (event, reason) => {
@@ -90,7 +91,7 @@ export const App = (props) => {
       return;
     }
 
-    setSnackbar(false);
+    setSnackbar(initialSnackState);
   };
 
   const handleDrawerToggle = () => {
@@ -134,8 +135,10 @@ export const App = (props) => {
       !formData.description ||
       !formData.image ||
       !formData.rating
-    )
+    ) {
+      openSnackbar({ success: false, error: true });
       return;
+    }
     await API.graphql({
       query: createNoteMutation,
       variables: { input: formData },
@@ -144,7 +147,7 @@ export const App = (props) => {
       const image = await Storage.get(formData.image);
       formData.image = image;
     }
-    handleClick();
+    openSnackbar({ success: true, error: false });
     fetchNotes();
     setNotes([...notes, formData]);
     setFormData(initialFormState);
@@ -234,7 +237,7 @@ export const App = (props) => {
       </main>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={snackbar}
+        open={snackbar.success}
         autoHideDuration={6000}
         onClose={handleClose}
       >
@@ -242,11 +245,16 @@ export const App = (props) => {
           Success!
         </Alert>
       </Snackbar>
-      {/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackbar.error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error">
           Make sure to fill everything out and add a picture!
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </div>
   );
 };

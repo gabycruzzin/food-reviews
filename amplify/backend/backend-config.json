@@ -16,7 +16,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
-              "description": "new-11-29-2020"
+              "description": "2020-11-29"
             }
           },
           "additionalAuthenticationProviders": []

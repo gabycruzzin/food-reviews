@@ -48,16 +48,14 @@ export const MyDrawer = ({ setFormData, formData, onUpload, createNote }) => {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" className={classes.recipeContainer}>
+    <Grid container justifyContent="center" className={classes.recipeContainer}>
       <TextField
-        id="outlined-basic"
         label="Restaurant"
         variant="outlined"
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         value={formData.name}
       />
       <TextField
-        id="outlined-basic2"
         label="Author"
         variant="outlined"
         onChange={(e) => setFormData({ ...formData, author: e.target.value })}

@@ -56,7 +56,7 @@ export const Review = ({ note, deleteNote }) => {
     setExpanded(!expanded);
   };
 
-  return (
+return (
     <Grid item xs={12} sm={6} md={6} lg={4} xl={3}>
       <Card className={classes.root}>
         <CardHeader
@@ -112,5 +112,4 @@ export const Review = ({ note, deleteNote }) => {
         </Collapse>
       </Card>
     </Grid>
-  );
-};
+)};

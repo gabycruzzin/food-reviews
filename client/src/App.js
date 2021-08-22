@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { API, Storage } from "aws-amplify";
-import { listNotes } from "./graphql/queries";
-import {
-  createNote as createNoteMutation,
-  deleteNote as deleteNoteMutation,
-} from "./graphql/mutations";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { IconButton } from "@material-ui/core";
@@ -18,6 +12,7 @@ import { MyDrawer } from "./components/MyDrawer";
 import { ReactComponent as Title } from "./imgs/title.svg";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import {addReview, getReviews} from './apis/manageReviews.js'
 
 const initialFormState = {
   name: "",
@@ -101,31 +96,26 @@ export const App = (props) => {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  async function onUpload(e) {
+    // if (!e.target.files[0]) return;
+    // const file = e.target.files[0];
+    // setFormData({ ...formData, image: file.name });
+    // await Storage.put(file.name, file);
+    // fetchNotes();
+  }
+
   useEffect(() => {
     fetchNotes();
   }, []);
 
-  async function onUpload(e) {
-    if (!e.target.files[0]) return;
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file.name });
-    await Storage.put(file.name, file);
-    fetchNotes();
-  }
-
   async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
-    const notesFromAPI = apiData.data.listNotes.items;
-    await Promise.all(
-      notesFromAPI.map(async (note) => {
-        if (note.image) {
-          const image = await Storage.get(note.image);
-          note.image = image;
-        }
-        return note;
-      })
-    );
-    setNotes(apiData.data.listNotes.items);
+    try {
+      let reviews = await getReviews();
+      setNotes(reviews);
+      setFormData(initialFormState);
+    } catch (ex) {
+      console.warn(new Error(ex));
+    }
   }
 
   async function createNote() {
@@ -133,34 +123,34 @@ export const App = (props) => {
       !formData.name ||
       !formData.author ||
       !formData.description ||
-      !formData.image ||
+      //!formData.image ||
       !formData.rating
     ) {
       openSnackbar({ success: false, error: true });
       return;
     }
-    await API.graphql({
-      query: createNoteMutation,
-      variables: { input: formData },
-    });
-    if (formData.image) {
-      const image = await Storage.get(formData.image);
-      formData.image = image;
+    // if (formData.image) {
+    //   const image = await Storage.get(formData.image);
+    //   formData.image = image;
+    // }
+    try {
+      let reviewsList = await addReview(formData);
+      openSnackbar({ success: true, error: false });
+      setNotes(reviewsList);
+      setFormData(initialFormState);
+      setMobileOpen(false);
+    } catch (ex) {
+      console.warn(new Error(ex));
     }
-    openSnackbar({ success: true, error: false });
-    fetchNotes();
-    setNotes([...notes, formData]);
-    setFormData(initialFormState);
-    setMobileOpen(false);
   }
 
   async function deleteNote({ id }) {
-    const newNotesArray = notes.filter((note) => note.id !== id);
-    setNotes(newNotesArray);
-    await API.graphql({
-      query: deleteNoteMutation,
-      variables: { input: { id } },
-    });
+    // const newNotesArray = notes.filter((note) => note.id !== id);
+    // setNotes(newNotesArray);
+    // await API.graphql({
+    //   query: deleteNoteMutation,
+    //   variables: { input: { id } },
+    // });
   }
 
   return (
@@ -227,13 +217,14 @@ export const App = (props) => {
           <Title style={{ width: "20em" }} />
         </div>
         <Grid container>
-          {notes.map((note) => (
-            <Review
-              key={note.id || note.name}
-              note={note}
-              deleteNote={deleteNote}
-            />
-          ))}
+        {notes.map(note => {
+          return <Review
+            notes={notes}
+            key={note.id || note.name}
+            note={note}
+            deleteNote={deleteNote}
+          />;
+        })}
         </Grid>
       </main>
       <Snackbar
